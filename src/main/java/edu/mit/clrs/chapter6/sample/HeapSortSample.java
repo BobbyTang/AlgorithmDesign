@@ -17,16 +17,17 @@ public class HeapSortSample {
 		// array[N-1] --> array[1]
 		int heapSize = array.length;
 		for (int i = array.length - 1; i > 0; i--) {
-			swap(array, 1, i);
+			//delete max
+			swap(array, 0, i);
 			heapSize = heapSize - 1;
-			maxHeapify(array, 1, heapSize);
+			maxHeapify(array, 0, heapSize);
 		}
 
 	}
 
 	public void buildMaxHeap(int[] array) {
 		// floor(A.length/2)
-		int heapSize = array.length - 1;
+		int heapSize = array.length;
 		// array begin with 0, inclusive
 		for (int i = array.length / 2; i >= 0; i--) {
 			maxHeapify(array, i, heapSize);
@@ -38,17 +39,19 @@ public class HeapSortSample {
 		int right = rightChild(i);
 		int largest;
 
-		if (left <= heapSize && array[left] > array[i]) {
+		//left less than length of array minus 1
+		//compare current node and two child nodes
+		if (left < heapSize && array[left] > array[i]) {
 			largest = left;
 		} else {
 			largest = i;
 		}
 
-		if (right <= heapSize && array[right] > largest) {
+		if (right < heapSize && array[right] > array[largest]) {
 			largest = right;
 		}
 
-		if (largest != array[i]) {
+		if (largest != i) {
 			swap(array, i, largest);
 
 			maxHeapify(array, largest, heapSize);
